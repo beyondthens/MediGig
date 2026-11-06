@@ -1,0 +1,31 @@
+{
+  "name": "medigig-za",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MediGig ZA — South African medical freelance marketplace (freelancers + hirers, escrow wallet, AI copilot)",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:api": "node server/index.js",
+    "dev:web": "vite --port 5173 --host 0.0.0.0",
+    "build": "vite build",
+    "start": "NODE_ENV=production node server/index.js",
+    "preview": "npm run build && npm run start",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}
