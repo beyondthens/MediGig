@@ -47,6 +47,7 @@ export interface Freelancer {
   completedGigs: number;
   verified: boolean;
   city: string;
+  updatedAt?: string;
 }
 
 export interface Hirer {

@@ -11,16 +11,23 @@
     "build": "vite build",
     "start": "NODE_ENV=production node server/index.js",
     "preview": "npm run build && npm run start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "android:init": "cap add android",
+    "android:sync": "npm run build && cap sync android",
+    "android:apk": "node scripts/build-android.mjs"
   },
   "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.0.1",
     "react-dom": "^19.0.1"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.6.0",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
