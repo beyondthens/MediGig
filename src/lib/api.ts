@@ -4,6 +4,7 @@ import type {
 } from './types';
 
 const TOKEN_KEY = 'medigig_token';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 export class ApiError extends Error {
   status: number;
@@ -25,7 +26,7 @@ async function request<T>(path: string, options: { method?: string; body?: any; 
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
   const token = getToken();
   if (options.auth !== false && token) headers.Authorization = `Bearer ${token}`;
-  const res = await fetch(path, {
+  const res = await fetch(`${API_BASE_URL}${path}`, {
     method: options.method || 'GET',
     headers,
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
@@ -77,7 +78,10 @@ export const api = {
   notifications: () => request<{ notifications: Notification[]; unread: number }>('/api/notifications'),
   readNotifications: (body: { all?: boolean; ids?: string[] }) => request<{ ok: boolean }>('/api/notifications/read', { method: 'POST', body }),
 
-  upload: (file: { name: string; mime: string; data: string }) => request<{ url: string; name: string; size: number }>('/api/uploads', { method: 'POST', body: file }),
+  upload: async (file: { name: string; mime: string; data: string }) => {
+    const result = await request<{ url: string; name: string; size: number }>('/api/uploads', { method: 'POST', body: file });
+    return { ...result, url: new URL(result.url, API_BASE_URL || window.location.origin).toString() };
+  },
 
   posts: () => request<{ posts: Post[] }>('/api/posts'),
   createPost: (body: Record<string, any>) => request<{ post: Post }>('/api/posts', { method: 'POST', body }),
